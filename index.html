@@ -1542,6 +1542,52 @@
     margin-top: 1rem;
   }
 
+
+  .hero-highlight.expanded {
+    transform: scale(1.03);
+    box-shadow: 0 20px 60px rgba(143,3,64,0.12);
+    border-color: var(--vinho);
+  }
+  .hero-highlight.expanded .hh-expanded {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 1.25rem;
+  }
+  .hero-highlight.expanded .hh-hint {
+    opacity: 0;
+  }
+  /* No mobile, o hover pode conflitar com touch; garantimos que expanded funcione */
+  @media (hover: none) {
+    .hero-highlight:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    .hero-highlight:hover .hh-expanded {
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(10px);
+      margin-top: 0;
+    }
+    .hero-highlight:hover .hh-hint {
+      opacity: 0.5;
+    }
+    .hero-highlight.expanded:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 60px rgba(143,3,64,0.12);
+      border-color: var(--vinho);
+    }
+    .hero-highlight.expanded:hover .hh-expanded {
+      max-height: 300px;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 1.25rem;
+    }
+    .hero-highlight.expanded:hover .hh-hint {
+      opacity: 0;
+    }
+  }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     .nav-links { display: none; }
@@ -1660,6 +1706,7 @@
   }
 
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -2252,6 +2299,22 @@
       }
     });
   }
+
+
+  // Hero highlight touch toggle
+  const heroHighlight = document.querySelector('.hero-highlight');
+  if (heroHighlight) {
+    heroHighlight.addEventListener('click', function(e) {
+      this.classList.toggle('expanded');
+    });
+    // Fecha ao tocar fora
+    document.addEventListener('click', function(e) {
+      if (!heroHighlight.contains(e.target)) {
+        heroHighlight.classList.remove('expanded');
+      }
+    });
+  }
+
 </script>
 
 
