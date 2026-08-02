@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bate Papo — Renata Gagetti · 3 de agosto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bege: #FDF8F2;
+    --bege-medio: #F5EDE3;
+    --bege-escuro: #FAF0E8;
+    --vinho: #8F0340;
+    --vinho-claro: #B01050;
+    --vinho-escuro: #6A0230;
+    --azul: #2D6AEE;
+    --azul-claro: #5B8EF5;
+    --texto: #1A1A1A;
+    --texto-medio: #5A5A5A;
+    --texto-claro: #9A9A9A;
+    --borda: rgba(143,3,64,0.12);
+    --borda-forte: rgba(143,3,64,0.22);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bege);
+    color: var(--texto);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    padding-top: 70px;
+    counter-reset: section-header;
+  }
+
+  ::selection { background: var(--vinho); color: var(--bege); }
+
+  /* ===== NAVBAR ===== */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 3rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  .navbar.scrolled {
+    background: rgba(253,248,242,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--borda);
+  }
+
+  .nav-brand {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--texto);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-brand em {
+    font-style: italic;
+    color: var(--vinho);
+    font-weight: 400;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--texto-medio);
+    text-decoration: none;
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--vinho);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nav-links a:hover {
+    color: var(--vinho);
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  .nav-cta {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bege);
+    background: var(--vinho);
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--vinho);
+  }
+
+  .nav-cta:hover {
+    background: transparent;
+    color: var(--vinho);
+  }
+
+  /* ===== UTILS ===== */
+  .serif { font-family: 'Cormorant Garamond', serif; }
+  .reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    padding: 4rem 2rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: var(--bege);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -20%;
+    width: 70vw; height: 70vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(143,3,64,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    animation: floatSlow 20s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; left: -15%;
+    width: 50vw; height: 50vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,106,238,0.03) 0%, transparent 70%);
+    pointer-events: none;
+    animation: floatSlow 25s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.98); }
+  }
+
+  .hero-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--bege-medio), var(--bege-escuro));
+    border: 2px solid var(--borda);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(143,3,64,0.08);
+  }
+
+  .hero-avatar img,
+  .hero-avatar svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .hero-avatar .initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--vinho);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--vinho);
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--vinho);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    max-width: 100%;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--vinho);
+    font-weight: 400;
+  }
+
+  .hero-intro {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    font-weight: 300;
+    color: var(--texto-medio);
+    max-width: 650px;
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-intro strong { color: var(--texto); font-weight: 500; }
+
+  /* ===== HERO HIGHLIGHT CARD ===== */
+  .hero-highlight {
+    background: #FAF0E8;
+    border: 1.5px solid var(--vinho);
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    max-width: 700px;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+  }
+
+  .hero-highlight:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 60px rgba(143,3,64,0.12);
+    border-color: var(--vinho);
+  }
+
+  .hero-highlight .hh-top {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--vinho);
+    opacity: 0.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-highlight .hh-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 300;
+    color: var(--vinho);
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .hero-highlight .hh-big strong {
+    font-weight: 600;
+  }
+
+  .hero-highlight .hh-collapsed {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-highlight .hh-stats {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .hero-highlight .hh-stat {
+    display: flex;
+    flex-direction: column;
+    min-width: 70px;
+  }
+
+  .hero-highlight .hh-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 600;
+    color: var(--vinho);
+    line-height: 1;
+  }
+
+  .hero-highlight .hh-stat .lab {
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--texto-claro);
+    margin-top: 0.4rem;
+  }
+
+  .hero-highlight .hh-expanded {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(10px);
+  }
+
+  .hero-highlight:hover .hh-expanded {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 1.25rem;
+  }
+
+  .hero-highlight .hh-expanded .hh-stats {
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(143,3,64,0.12);
+  }
+
+  .hero-highlight .hh-sub {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-highlight .hh-sub strong {
+    color: var(--vinho);
+    font-weight: 500;
+  }
+
+  .hero-highlight .hh-context {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.75;
+  }
+
+  .hero-highlight .hh-context strong {
+    color: var(--vinho);
+    font-weight: 500;
+  }
+
+  .hero-highlight .hh-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+  }
+
+  .hero-highlight:hover .hh-hint {
+    opacity: 0;
+  }
+
+  .hero-highlight .hh-hint-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(143,3,64,0.2), transparent);
+  }
+
+  .hero-highlight .hh-hint-text {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--vinho);
+    white-space: nowrap;
+  }
+
+  .hero-quote-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 750px;
+    padding: 2.5rem 3rem 2.5rem 4rem;
+    border-left: 3px solid var(--vinho);
+    background: rgba(253,248,242,0.6);
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-quote-wrap::before {
+    content: '"';
+    position: absolute;
+    top: 0.1em; left: 0.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    color: var(--vinho);
+    opacity: 0.1;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .hero-quote-wrap p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--texto-medio);
+    line-height: 1.6;
+    position: relative;
+    text-align: left;
+  }
+
+  .hero-quote-wrap strong {
+    color: var(--vinho);
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .scroll-line {
+    position: absolute;
+    bottom: 2.5rem; left: 2rem;
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--vinho), transparent);
+    opacity: 0.5;
+    animation: bounceLine 2s ease-in-out infinite;
+  }
+
+  @keyframes bounceLine {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(8px); opacity: 0.2; }
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--borda-forte), transparent);
+  }
+
+  /* ===== PILARES ===== */
+  .pilares-section { padding: 0; position: relative; }
+
+  .pilar-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pilar-row:nth-child(even) { direction: rtl; }
+  .pilar-row:nth-child(even) > * { direction: ltr; }
+  .pilar-row:nth-child(odd) { background: linear-gradient(135deg, var(--bege) 0%, var(--bege-medio) 100%); }
+  .pilar-row:nth-child(even) { background: linear-gradient(225deg, var(--bege-medio) 0%, var(--bege) 100%); }
+
+  .pilar-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 4rem;
+  }
+
+  .pilar-num-bg {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(10rem, 20vw, 22rem);
+    font-weight: 300;
+    color: var(--vinho);
+    opacity: 0.04;
+    line-height: 1;
+    position: absolute;
+    user-select: none;
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .pilar-row.visible .pilar-num-bg { opacity: 0.07; transform: scale(1.05); }
+
+  .pilar-line {
+    width: 1px; height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--vinho), transparent);
+    opacity: 0.3;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pilar-content {
+    padding: 4rem 3rem 4rem 4rem;
+    max-width: 520px;
+  }
+
+  .pilar-row:nth-child(even) .pilar-content {
+    padding: 4rem 4rem 4rem 3rem;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .pilar-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    color: var(--texto);
+    line-height: 1.2;
+  }
+
+  .pilar-content p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.85;
+  }
+
+  .pilar-content strong { color: var(--texto); font-weight: 500; }
+
+  /* ===== CITAÇÃO GRANDE ===== */
+  .big-quote {
+    padding: 10rem 2rem;
+    text-align: left;
+    background: var(--vinho);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .big-quote::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.04) 0%, transparent 60%);
+  }
+
+  .big-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.6rem);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(253,248,242,0.9);
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+    padding-left: 2rem;
+    border-left: 3px solid rgba(253,248,242,0.2);
+  }
+
+  .big-quote strong { color: var(--bege); font-weight: 600; font-style: normal; }
+
+  .big-quote .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12rem;
+    color: rgba(253,248,242,0.06);
+    line-height: 0.5;
+    position: absolute;
+    top: 2rem; left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  /* ===== MÉTRICAS ===== */
+  .metricas-section {
+    padding: 8rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .metricas-header {
+    text-align: left;
+    margin-bottom: 5rem;
+    max-width: 700px;
+  }
+
+  .metricas-header .section-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--vinho);
+    margin-bottom: 1rem;
+  }
+
+  .metricas-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .metricas-header h2 em { font-style: italic; color: var(--vinho); }
+
+  .metricas-header p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .metrica-pair {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--borda);
+    position: relative;
+  }
+
+  .metrica-pair:first-child { border-top: 1px solid var(--borda); }
+
+  .metrica-pair::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--vinho), transparent);
+    opacity: 0;
+    transition: opacity 0.8s ease 0.3s;
+  }
+
+  .metrica-pair.visible::after { opacity: 0.15; }
+
+  .metrica-side {
+    padding: 3rem 2rem;
+    position: relative;
+    transition: background 0.5s ease;
+  }
+
+  .metrica-side:hover { background: rgba(143,3,64,0.02); }
+  .metrica-side.design { text-align: left; }
+  .metrica-side.produto { text-align: left; }
+
+  .metrica-side .tag {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .metrica-side.design .tag { color: var(--vinho); }
+  .metrica-side.produto .tag { color: var(--azul); }
+
+  .metrica-side .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    font-weight: 500;
+    color: var(--texto);
+    margin-bottom: 0.5rem;
+  }
+
+  .metrica-plus {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 200;
+    color: var(--texto-claro);
+    padding: 0 1.5rem;
+    opacity: 0.4;
+  }
+
+  .metrica-desc {
+    grid-column: 1 / -1;
+    padding: 2rem 0 3rem;
+    text-align: left;
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0;
+    border-top: 1px solid var(--borda);
+  }
+
+  .metrica-desc strong { color: var(--vinho); font-weight: 500; }
+
+  /* ===== PRODUTOS ===== */
+  .produtos-section {
+    padding: 8rem 2rem;
+    background: linear-gradient(180deg, var(--bege) 0%, var(--bege-medio) 50%, var(--bege) 100%);
+  }
+
+  .produtos-inner { max-width: 1100px; margin: 0 auto; }
+
+  .produtos-header {
+    text-align: left;
+    margin-bottom: 4rem;
+    max-width: 700px;
+  }
+
+  .produtos-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .produtos-header h2 em { font-style: italic; color: var(--vinho); }
+
+  .produtos-header p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .produto-card {
+    padding: 3rem 2rem;
+    text-align: left;
+    border: 1px solid var(--borda);
+    background: var(--bege);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .produto-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--vinho), var(--azul));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .produto-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    border-color: var(--borda-forte);
+  }
+
+  .produto-card:hover::before { transform: scaleX(1); }
+
+  .produto-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .produto-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: var(--texto);
+  }
+
+  .produto-card p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .produto-card .sub {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--texto-claro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ===== CASES ===== */
+  .cases-section {
+    padding: 8rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .cases-header {
+    text-align: left;
+    margin-bottom: 5rem;
+    max-width: 700px;
+  }
+
+  .cases-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+  }
+
+  .cases-header h2 em { font-style: italic; color: var(--vinho); }
+
+  .case-block {
+    margin-bottom: 6rem;
+    position: relative;
+  }
+
+  .case-block:last-child { margin-bottom: 0; }
+
+  .case-block::before {
+    content: '';
+    position: absolute;
+    top: -3rem; left: 0;
+    width: 60px; height: 1px;
+    background: var(--vinho);
+    opacity: 0.3;
+  }
+
+  .case-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: var(--texto);
+  }
+
+  .case-title em { font-style: italic; color: var(--vinho); }
+
+  .case-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--borda);
+    position: relative;
+  }
+
+  .case-steps::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--vinho), var(--azul), var(--vinho));
+    opacity: 0.2;
+  }
+
+  .case-step {
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+
+  .case-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 20%; bottom: 20%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--borda-forte), transparent);
+  }
+
+  .case-step-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--vinho);
+    margin-bottom: 1rem;
+  }
+
+  .case-step-text {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.7;
+  }
+
+  .case-results {
+    display: flex;
+    gap: 3.5rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--borda);
+    justify-content: flex-start;
+  }
+
+  .case-result .val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 600;
+    color: var(--vinho);
+    line-height: 1;
+  }
+
+  .case-result .lab {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--texto-claro);
+    margin-top: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* ===== ROADMAP ===== */
+  .roadmap-section {
+    padding: 8rem 2rem;
+    background: linear-gradient(180deg, var(--bege-medio) 0%, var(--bege) 100%);
+  }
+
+  .roadmap-inner { max-width: 1100px; margin: 0 auto; }
+
+  .roadmap-header {
+    text-align: left;
+    margin-bottom: 4rem;
+    max-width: 700px;
+  }
+
+  .roadmap-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .roadmap-header h2 em { font-style: italic; color: var(--vinho); }
+
+  .roadmap-header p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .roadmap-card {
+    padding: 3rem 2rem;
+    border: 1px solid var(--borda);
+    background: var(--bege);
+    position: relative;
+    transition: all 0.5s ease;
+  }
+
+  .roadmap-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.06);
+  }
+
+  .roadmap-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--vinho), var(--azul));
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s ease;
+  }
+
+  .roadmap-card:hover::after { transform: scaleX(1); }
+
+  .roadmap-period {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--vinho);
+    margin-bottom: 1.2rem;
+  }
+
+  .roadmap-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--texto);
+  }
+
+  .roadmap-card > p {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .roadmap-metrics {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--borda);
+  }
+
+  .roadmap-metrics p {
+    font-size: 0.78rem;
+    color: var(--texto-claro);
+    margin-bottom: 0.4rem;
+  }
+
+  .roadmap-metrics strong { color: var(--vinho); font-weight: 500; }
+
+  /* ===== PROGRESS ===== */
+  .progress-section {
+    padding: 8rem 2rem;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  .progress-header {
+    text-align: left;
+    margin-bottom: 4rem;
+    max-width: 700px;
+  }
+
+  .progress-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+  }
+
+  .progress-header h2 em { font-style: italic; color: var(--vinho); }
+
+  .progress-item {
+    margin-bottom: 2.8rem;
+    position: relative;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+  }
+
+  .progress-label span:first-child {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--texto);
+  }
+
+  .progress-label span:last-child {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--texto-claro);
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--bege-medio);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 100%;
+    background: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(143,3,64,0.08) 8px, rgba(143,3,64,0.08) 9px);
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--vinho), var(--vinho-claro));
+    border-radius: 2px;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .progress-fill.animated { width: var(--target-width); }
+
+  /* ===== TRAJETÓRIA ===== */
+  .traj-section {
+    padding: 8rem 2rem;
+    background: linear-gradient(180deg, var(--bege) 0%, var(--bege-medio) 100%);
+  }
+
+  .traj-inner { max-width: 900px; margin: 0 auto; }
+
+  .traj-header {
+    text-align: left;
+    margin-bottom: 4rem;
+    max-width: 700px;
+  }
+
+  .traj-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+  }
+
+  .traj-header h2 em { font-style: italic; color: var(--vinho); }
+
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0.5rem;
+    bottom: 2rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--vinho), rgba(143,3,64,0.1));
+  }
+
+  .t-item {
+    position: relative;
+    padding: 0 0 3.5rem 0;
+  }
+
+  .t-item::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0.4rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--vinho);
+    border: 3px solid var(--bege);
+    box-shadow: 0 0 0 1px var(--vinho);
+    transform: translateX(-50%);
+    transition: all 0.4s ease;
+  }
+
+  .t-item:hover::before {
+    transform: translateX(-50%) scale(1.3);
+    box-shadow: 0 0 0 2px var(--vinho), 0 0 20px rgba(143,3,64,0.2);
+  }
+
+  .t-content {
+    padding-left: 3.5rem;
+  }
+
+  .t-period {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--vinho);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .t-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--texto);
+    margin-bottom: 0.2rem;
+  }
+
+  .t-company {
+    font-size: 0.85rem;
+    color: var(--texto-claro);
+    margin-bottom: 0.6rem;
+  }
+
+  .t-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    line-height: 1.75;
+    max-width: 550px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: linear-gradient(180deg, var(--bege-medio) 0%, var(--bege-escuro) 100%);
+    padding: 6rem 0 3rem;
+    text-align: left;
+    border-top: 1px solid var(--borda);
+    position: relative;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 2px;
+    background: var(--vinho);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--bege), var(--bege-medio));
+    border: 2px solid var(--borda);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(143,3,64,0.06);
+  }
+
+  .footer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .footer-avatar .initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--vinho);
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--texto);
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-role {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--texto-medio);
+    margin-bottom: 2rem;
+    letter-spacing: 0.03em;
+  }
+
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bege);
+    background: var(--vinho);
+    padding: 0.9rem 2.2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--vinho);
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-cta:hover {
+    background: transparent;
+    color: var(--vinho);
+  }
+
+  .footer-cta svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  .footer-line {
+    width: 30px;
+    height: 1px;
+    background: var(--vinho);
+    margin: 0 0 1.5rem 0;
+    opacity: 0.3;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--texto-claro);
+    letter-spacing: 0.08em;
+    text-align: left;
+    margin: 0;
+  }
+
+  .footer-copy a {
+    color: var(--vinho);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+
+  /* ===== NAV TOGGLE ===== */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+    padding: 0;
+    position: relative;
+    z-index: 1002;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--texto);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: center;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .nav-toggle.active span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ===== NAV OVERLAY ===== */
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(253, 248, 242, 0.97);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-overlay-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    transform: translateY(30px);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+
+  .nav-overlay.active .nav-overlay-inner {
+    transform: translateY(0);
+  }
+
+  .nav-overlay-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--texto);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .nav-overlay-link:hover {
+    color: var(--vinho);
+  }
+
+  .nav-overlay-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--vinho);
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nav-overlay-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-overlay-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bege);
+    background: var(--vinho);
+    padding: 0.9rem 2.2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--vinho);
+    margin-top: 1rem;
+  }
+
+  .nav-overlay-cta:hover {
+    background: transparent;
+    color: var(--vinho);
+  }
+
+  .nav-overlay-cta svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+
+  /* ===== HEADERS EDITORIAIS ===== */
+  .metricas-header,
+  .produtos-header,
+  .cases-header,
+  .roadmap-header,
+  .progress-header,
+  .traj-header {
+    position: relative;
+    padding-top: 2rem;
+  }
+
+  .metricas-header::before,
+  .produtos-header::before,
+  .cases-header::before,
+  .roadmap-header::before,
+  .progress-header::before,
+  .traj-header::before {
+    counter-increment: section-header;
+    content: "0" counter(section-header);
+    position: absolute;
+    top: -1.5rem;
+    left: -0.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5rem, 10vw, 8rem);
+    font-weight: 300;
+    color: var(--vinho);
+    opacity: 0.04;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.03em;
+  }
+
+  .metricas-header .section-label,
+  .produtos-header .section-label,
+  .cases-header .section-label,
+  .roadmap-header .section-label,
+  .progress-header .section-label,
+  .traj-header .section-label {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    background: var(--vinho);
+    color: var(--bege);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .metricas-header h2,
+  .produtos-header h2,
+  .cases-header h2,
+  .roadmap-header h2,
+  .progress-header h2,
+  .traj-header h2 {
+    position: relative;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .metricas-header h2::after,
+  .produtos-header h2::after,
+  .roadmap-header h2::after,
+  .progress-header h2::after,
+  .traj-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--vinho), var(--azul));
+  }
+
+  .metricas-header p,
+  .produtos-header p,
+  .cases-header p,
+  .roadmap-header p,
+  .progress-header p,
+  .traj-header p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--texto-medio);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+  }
+
+  @media (max-width: 900px) {
+    .navbar { padding: 0 1.5rem; }
+    .metricas-header::before,
+    .produtos-header::before,
+    .cases-header::before,
+    .roadmap-header::before,
+    .progress-header::before,
+    .traj-header::before {
+      font-size: 4rem;
+      top: -0.5rem;
+      left: 0;
+    }
+    .metricas-header h2::after,
+    .produtos-header h2::after,
+    .cases-header h2::after,
+    .roadmap-header h2::after,
+    .progress-header h2::after,
+    .traj-header h2::after {
+      width: 35px;
+    }
+    .pilar-row { grid-template-columns: 1fr; min-height: auto; }
+    .pilar-row:nth-child(even) { direction: ltr; }
+    .pilar-row:nth-child(even) .pilar-content { text-align: left; padding: 3rem 2rem; margin-left: 0; }
+    .pilar-content { padding: 3rem 2rem; max-width: 100%; }
+    .pilar-visual { padding: 3rem 2rem; min-height: 200px; }
+    .pilar-num-bg { font-size: 8rem; }
+    .metrica-pair { grid-template-columns: 1fr; }
+    .metrica-side.design, .metrica-side.produto { text-align: left; padding: 2rem 1.5rem; }
+    .metrica-plus { display: none; }
+    .metrica-desc { padding: 1.5rem 1.5rem 2.5rem; }
+    .produtos-grid, .roadmap-grid { grid-template-columns: 1fr; }
+    .case-steps { grid-template-columns: 1fr; }
+    .case-step:not(:last-child)::after { display: none; }
+    .case-step { border-bottom: 1px solid var(--borda); padding: 2rem 1.5rem; }
+    .case-step:last-child { border-bottom: none; }
+    .case-results { gap: 2rem; flex-wrap: wrap; }
+    .hero-quote-wrap { padding: 2rem 1.5rem; }
+    .hero-quote-wrap::before { font-size: 5rem; top: 0; left: 0.5rem; }
+    .big-quote { padding: 6rem 1.5rem; }
+    .big-quote .quote-mark { font-size: 8rem; }
+    body { padding-top: 60px; }
+    .navbar { height: 60px; }
+    .nav-overlay-link { font-size: 1.6rem; }
+    .nav-overlay-inner { gap: 1.5rem; }
+    .hero-highlight { padding: 1.5rem; }
+    .hero-highlight .hh-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .hero-highlight .hh-stat .num { font-size: 1.3rem; }
+  }
+
+  /* ===== BACK TO TOP ===== */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--vinho);
+    border: 1.5px solid var(--vinho);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(143,3,64,0.25);
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    background: var(--bege);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(143,3,64,0.3);
+  }
+
+  .back-to-top svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--bege);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.3s ease;
+  }
+
+  .back-to-top:hover svg {
+    stroke: var(--vinho);
+  }
+
+  @media (max-width: 900px) {
+    .back-to-top {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+    }
+    .back-to-top svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="nav-brand">Bate Papo VP Renata Gagetti | Neto Andrade</a>
+  <div class="nav-links">
+    <a href="#pilares">Pilares</a>
+    <a href="#metricas">Métricas</a>
+    <a href="#cases">Cases</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#trajetoria">Trajetória</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="nav-overlay" id="navOverlay">
+  <div class="nav-overlay-inner">
+    <a href="#pilares" class="nav-overlay-link">Pilares</a>
+    <a href="#metricas" class="nav-overlay-link">Métricas</a>
+    <a href="#cases" class="nav-overlay-link">Cases</a>
+    <a href="#roadmap" class="nav-overlay-link">Roadmap</a>
+    <a href="#trajetoria" class="nav-overlay-link">Trajetória</a>
+    <a href="https://linkedin.com/in/netoandrade/" target="_blank" class="nav-overlay-cta">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-avatar reveal">
+    <svg viewBox="0 0 120 120" width="100%" height="100%" style="border-radius: 50%;">
+      <circle cx="60" cy="60" r="58" fill="none" stroke="rgba(143,3,64,0.15)" stroke-width="1"/>
+      <g transform="translate(18, 44) scale(0.7)">
+        <path d="M69.6377 24.0906C69.6377 31.0398 66.1697 35.7807 60.0544 35.7807C56.4162 35.7807 53.6604 34.0511 52.2361 30.731L51.4 35.3792H46.291V30.592V4.75635H52.4218V17.1414C53.9236 14.1301 56.5555 12.5395 60.0544 12.5395C66.1852 12.5395 69.6377 17.2804 69.6377 24.0906ZM63.4759 24.0906C63.4759 20.0137 61.4323 17.6201 57.9334 17.6201C54.4654 17.6201 52.4373 20.0137 52.4373 24.0906C52.4373 28.291 54.4809 30.6846 57.9334 30.6846C61.4323 30.6846 63.4759 28.291 63.4759 24.0906Z" fill="#1A1A1A"/>
+        <path d="M86.4043 35.3792V12.9409H92.5351V35.3792H86.4043Z" fill="#1A1A1A"/>
+        <path d="M120 24.1832C120 31.0397 116.532 35.7806 110.417 35.7806C106.918 35.7806 104.286 34.19 102.784 31.1787V43.0232H96.6533V17.7127V12.9254H101.762L102.598 17.5737C104.069 14.2535 106.763 12.5239 110.417 12.5239C116.532 12.5394 120 17.2803 120 24.1832ZM113.823 24.1832C113.823 20.0291 111.779 17.6355 108.28 17.6355C104.812 17.6355 102.784 20.0291 102.784 24.1832C102.784 28.3064 104.828 30.6845 108.28 30.6845C111.795 30.6845 113.823 28.2909 113.823 24.1832Z" fill="#1A1A1A"/>
+        <path d="M92.9995 9.68266C93.2317 9.18849 93.3556 8.648 93.3556 8.07662C93.3556 5.93008 91.6061 4.18506 89.4542 4.18506C87.3022 4.18506 85.5527 5.93008 85.5527 8.07662C85.5527 8.648 85.6921 9.18849 85.9088 9.68266H92.9995Z" fill="#1A1A1A"/>
+        <path d="M78.2295 30.0669H83.7255V35.3792H80.4898C74.6377 35.3792 72.0986 32.7694 72.0986 25.8202V4.75635H78.2295V25.99V30.0669Z" fill="#1A1A1A"/>
+        <path d="M20.3277 0C7.0907 0 0 4.9571 0 17.929C0 29.511 5.976 38.3905 20.3277 38.3905C20.6838 38.3905 21.3805 38.3905 21.3805 38.3905C21.3805 40.0738 21.3805 42.2358 21.3805 44.0889C21.3805 44.5522 21.752 44.9846 22.3094 44.9846C22.7429 44.9846 22.8667 44.8147 23.2228 44.5213C25.7464 42.3439 33.2086 35.5954 33.2086 35.5954C36.9243 32.059 40.6554 27.8586 40.6554 17.929C40.6399 4.9571 33.5492 0 20.3277 0Z" fill="#0096FA"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-tag reveal">Bate Papo — Renata Gagetti · 3 de agosto</div>
+  <h1 class="reveal">Liderança de Design que <em>atua junto</em> com Produto<br> e Tecnologia</h1>
+  <p class="hero-intro reveal">
+    <strong>👋 Oi Renata</strong>, criei este material para complementar nossa conversa. Nos últimos <strong>cinco anos</strong> construí do zero o braço de design do <strong>iFood Pago</strong>, ecossistema B2B fintech, e liderei times de Product Design, Research, UX Writing e Design Ops.
+  </p>
+
+  <!-- ===== HERO HIGHLIGHT CARD ===== -->
+  <div class="hero-highlight reveal">
+    <div class="hh-top">iFood Pago — Crescimento Anual</div>
+    <div class="hh-big">De <strong>R$45mi</strong> para <strong>Bilhões!</strong></div>
+    <div class="hh-collapsed">
+      <div class="hh-teaser">
+        Comparado com o mesmo trimestre do ano passado no iFood Pago, tivemos um crescimento <strong>expressivo que mostra tração forte do produto e que representa uma parcela significativa do rendimento de todo iFood.</strong>
+      </div>
+    </div>
+    <div class="hh-expanded">
+      <div class="hh-stats">
+        <div class="hh-stat">
+          <span class="num">R$45mi</span>
+          <span class="lab">ANTERIOR</span>
+        </div>
+        <div class="hh-stat">
+          <span class="num">R$2,4bi</span>
+          <span class="lab">ATUAL</span>
+        </div>
+        <div class="hh-stat">
+          <span class="num">+340%</span>
+          <span class="lab">CRESCIMENTO</span>
+        </div>
+        <div class="hh-stat">
+          <span class="num">25%</span>
+          <span class="lab">DO IFOOD</span>
+        </div>
+      </div>
+    </div>
+    <div class="hh-hint">
+      <span class="hh-hint-line"></span>
+      <span class="hh-hint-text">Toque para expandir</span>
+      <span class="hh-hint-line"></span>
+    </div>
+  </div>
+
+  <div class="hero-quote-wrap reveal">
+    <p>A pessoa designer no meu time é <strong>pesquisadora, analista e estrategista</strong>, não só executora. Product manager é parceira desde o primeiro dia de discovery, não apenas quem recebe o handoff. E a engenharia constrói junto desde o primeiro wireframe.</p>
+  </div>
+  <div class="scroll-line"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PILARES ===== -->
+<section class="pilares-section" id="pilares">
+
+  <div class="pilar-row reveal">
+    <div class="pilar-visual">
+      <span class="pilar-num-bg">01</span>
+      </div>
+    <div class="pilar-content">
+      <h3>Co-criação desde o discovery</h3>
+      <p>Product, Design e Tech formulam as entrevistas, análise de métricas e prototipagem juntos. O produto entra no discovery sabendo o que é viável de negócio; o design sai sabendo o que é escalável de experiência; a engenharia valida o que é factível de construir. <strong><br>Há construção conjunta entre as três áreas desde o primeiro dia.</strong></p>
+    </div>
+  </div>
+
+  <div class="pilar-row reveal">
+    <div class="pilar-visual">
+      <span class="pilar-num-bg">02</span>
+      </div>
+    <div class="pilar-content">
+      <h3>Métricas como linguagem comum</h3>
+      <p>Os mesmos OKRs e KPIs de produto orientam os três times. Taxa de conversão, NPS, tempo de tarefa, churn: designers, PMs e engenheiros olham para os mesmos dashboards e tomam decisões baseadas nos mesmos dados. <strong>Quando todos falam a mesma língua, o alinhamento acontece naturalmente.</strong></p>
+    </div>
+  </div>
+
+  <div class="pilar-row reveal">
+    <div class="pilar-visual">
+      <span class="pilar-num-bg">03</span>
+      </div>
+    <div class="pilar-content">
+      <h3>Prototipagem com IA <br>em alta velocidade</h3>
+      <p>Designers constroem protótipos de alta fidelidade com lógica de estado real, dados sintéticos e integração com APIs de sandbox, acelerados por ferramentas de IA. Isso reduz retrabalho em 40% e alinha expectativas entre Product, Design e Tech <strong>antes do primeiro commit.</strong></p>
+    </div>
+  </div>
+
+  <div class="pilar-row reveal">
+    <div class="pilar-visual">
+      <span class="pilar-num-bg">04</span>
+      </div>
+    <div class="pilar-content">
+      <h3>Roadmap como<br>acordo estratégico</h3>
+      <p>O backlog não é só do produto. É um acordo entre Product, Design e Tech sobre o que significa "pronto" para a pessoa usuária e para o negócio. Priorização conjunta, trade-offs transparentes e alinhamento de esforços desde o primeiro dia.</p>
+    </div>
+  </div>
+
+  <div class="pilar-row reveal">
+    <div class="pilar-visual">
+      <span class="pilar-num-bg">05</span>
+      </div>
+    <div class="pilar-content">
+      <h3>Velocidade de iteração orientada por dados</h3>
+      <p>Ciclos curtos de experimentação, A/B tests constantes e análise de comportamento em tempo real. Product define a hipótese, Design desenha a variante, Tech implementa. <strong>A velocidade de aprendizado é o verdadeiro diferencial competitivo.</strong></p>
+    </div>
+  </div>
+
+  <div class="pilar-row reveal">
+    <div class="pilar-visual">
+      <span class="pilar-num-bg">06</span>
+      </div>
+    <div class="pilar-content">
+      <h3>Design System como<br>produto compartilhado</h3>
+      <p>Mantido por um time híbrido de Design Engineers, Product Designers e PMs. Tokens, componentes e documentação vivem no mesmo repositório que o código, com versionamento e contribuição aberta. Adoção medida como OKR trackable, <strong>igual a qualquer métrica de negócio.</strong></p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== CITAÇÃO GRANDE ===== -->
+<div class="big-quote">
+  <div class="quote-mark">"</div>
+  <p class="reveal">"Se você trabalha com tecnologia, como gerente de produto, Head de Produto, Diretor de Produto ou CPO, e não está imerso, bebendo água de IA todo dia,<br><strong>você está trabalhando errado."</strong> <br>DR de Produto</p>
+</div>
+
+<!-- ===== MÉTRICAS ===== -->
+<div class="metricas-section" id="metricas">
+  <div class="metricas-header reveal">
+    <div class="section-label">Equivalências de Métricas</div>
+    <h2>A tríade <em>fala<br>a mesma língua</em></h2>
+    <p>Cada par de métricas mostra como uma decisão de design impacta diretamente um resultado de produto. Não são métricas isoladas, são pontes entre duas áreas que, quando alinhadas com a engenharia, multiplicam o impacto no negócio.</p>
+  </div>
+
+  <div class="metrica-pair reveal">
+    <div class="metrica-side design">
+      <span class="tag">Design</span>
+      <div class="name">Taxa de Sucesso na Tarefa</div>
+    </div>
+    <div class="metrica-plus">+</div>
+    <div class="metrica-side produto">
+      <span class="tag">Produto</span>
+      <div class="name">Taxa de Conversão</div>
+    </div>
+    <div class="metrica-desc">
+      Quanto mais fluida a interface, maior a conversão. No iFood Pago, reduzimos o tempo de cadastro e vimos o <strong>completion rate saltar de 62% para 89%</strong>.
+    </div>
+  </div>
+
+  <div class="metrica-pair reveal">
+    <div class="metrica-side design">
+      <span class="tag">Design</span>
+      <div class="name">Taxa de Erro do Usuário</div>
+    </div>
+    <div class="metrica-plus">+</div>
+    <div class="metrica-side produto">
+      <span class="tag">Produto</span>
+      <div class="name">NPS</div>
+    </div>
+    <div class="metrica-desc">
+      Erros de interface são a principal fonte de frustração. Cada redução de 10% na taxa de erro correlaciona com <strong>+4 pontos no NPS</strong>. No iFood Pago, redesign de fluxos de pagamento reduziu erros em 35%.
+    </div>
+  </div>
+
+  <div class="metrica-pair reveal">
+    <div class="metrica-side design">
+      <span class="tag">Design</span>
+      <div class="name">Taxa de Recuperação de Erro</div>
+    </div>
+    <div class="metrica-plus">+</div>
+    <div class="metrica-side produto">
+      <span class="tag">Produto</span>
+      <div class="name">Churn Rate</div>
+    </div>
+    <div class="metrica-desc">
+      Erros acontecem. O que importa é como o design ajuda o usuário a se recuperar. Reduzimos o abandono em fluxos críticos ao desenhar <strong>estados de erro claros que conversam com os logs de erro</strong>.
+    </div>
+  </div>
+
+  <div class="metrica-pair reveal">
+    <div class="metrica-side design">
+      <span class="tag">Design</span>
+      <div class="name">Taxa de Cliques Errados</div>
+    </div>
+    <div class="metrica-plus">+</div>
+    <div class="metrica-side produto">
+      <span class="tag">Produto</span>
+      <div class="name">GMV / Receita</div>
+    </div>
+    <div class="metrica-desc">
+      Cada clique errado é dinheiro perdido. No iFood Pago, mapeamos heatmaps de cliques errados em telas de conciliação e redesenhamos a hierarquia visual, <strong>reduzindo misclicks em 42%</strong> e acelerando o fechamento diário.
+    </div>
+  </div>
+
+  <div class="metrica-pair reveal">
+    <div class="metrica-side design">
+      <span class="tag">Design</span>
+      <div class="name">Tempo na Tarefa</div>
+    </div>
+    <div class="metrica-plus">+</div>
+    <div class="metrica-side produto">
+      <span class="tag">Produto</span>
+      <div class="name">Tempo para Primeiro Valor</div>
+    </div>
+    <div class="metrica-desc">
+      Tempo de tarefa e percepção de velocidade andam juntos. Otimizações que reduziram o tempo médio de conciliação bancária <strong>fizeram o time-to-first-sale cair de 8 minutos para 4 minutos</strong>.
+    </div>
+  </div>
+
+  <div class="metrica-pair reveal">
+    <div class="metrica-side design">
+      <span class="tag">Design</span>
+      <div class="name">Taxa de Abandono</div>
+    </div>
+    <div class="metrica-plus">+</div>
+    <div class="metrica-side produto">
+      <span class="tag">Produto</span>
+      <div class="name">Taxa de Ativação</div>
+    </div>
+    <div class="metrica-desc">
+      Usuários que abandonam na primeira tela nunca ativam. No iFood Pago, redesenhamos o onboarding de restaurantes e <strong>reduzimos o bounce rate do primeiro passo em 38%</strong>, aumentando a ativação em 27%.
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== PRODUTOS ===== -->
+<div class="produtos-section">
+  <div class="produtos-inner">
+    <div class="produtos-header reveal">
+      <div class="section-label">O que liderei</div>
+      <h2>iFood Pago <em>& Comer Fora</em></h2>
+      <p>Dois ecossistemas que exigiram parceria constante entre Design, Produto e Tech. Cada um com desafios distintos e métricas de sucesso claras.</p>
+    </div>
+    <div class="produtos-grid">
+      <div class="produto-card reveal">
+        <span class="produto-icon">📱</span>
+        <h3>iFood para Comer Fora</h3>
+        <p>Produto pioneiro no Brasil que conecta o app a experiências presenciais. Reservas de mesa, cashback, gestão de filas via Get In e check-in digital.</p>
+        <div class="sub">Campinas, Curitiba e expansão</div>
+      </div>
+      <div class="produto-card reveal">
+        <span class="produto-icon">💳</span>
+        <h3>iFood Pago & Maquinona</h3>
+        <p>Banco digital e maquininha inteligente que unifica pagamentos no salão e delivery. Campanhas de fidelidade e inteligência de dados.</p>
+        <div class="sub">Meta: R$ 2 bi processados</div>
+      </div>
+      <div class="produto-card reveal">
+        <span class="produto-icon">🔗</span>
+        <h3>Integração Estratégica</h3>
+        <p>Fluxo contínuo: descoberta no app → resgate de cupom → check-in no restaurante → pagamento na Maquinona. Dados unificados para fidelização.</p>
+        <div class="sub">Ecossistema integrado</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CASES ===== -->
+<div class="cases-section" id="cases">
+  <div class="cases-header reveal">
+    <div class="section-label">Cases de Negócio</div>
+    <h2>Resultados que <em>falam por si</em></h2>
+  </div>
+
+  <div class="case-block reveal">
+    <h3 class="case-title">iFood Pago — <em>Onboarding de Restaurantes</em></h3>
+    <div class="case-steps">
+      <div class="case-step">
+        <div class="case-step-label">Desafio</div>
+        <div class="case-step-text">CAC de R$ 420/restaurante. Time de vendas limitado. Fricção no envio de documentos.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Hipótese</div>
+        <div class="case-step-text">Se simplificarmos o onboarding para 3 passos com OCR de CNPJ, o CAC cai 60% sem perder qualidade.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Experimento</div>
+        <div class="case-step-text">A/B test: 50% dos leads para fluxo self-service vs. 50% para vendas tradicional durante 6 semanas.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Resultados</div>
+        <div class="case-step-text">Redução de 62% no CAC, aumento de 340% na conversão e LTV/CAC de 4,2x.</div>
+      </div>
+    </div>
+    <div class="case-results">
+      <div class="case-result"><div class="val">-62%</div><div class="lab">CAC</div></div>
+      <div class="case-result"><div class="val">+340%</div><div class="lab">Conversão</div></div>
+      <div class="case-result"><div class="val">4,2x</div><div class="lab">LTV/CAC</div></div>
+      <div class="case-result"><div class="val">18 min</div><div class="lab">Time-to-first-sale</div></div>
+    </div>
+  </div>
+
+  <div class="case-block reveal">
+    <h3 class="case-title">iFood Comer Fora — <em>Expansão de Reservas</em></h3>
+    <div class="case-steps">
+      <div class="case-step">
+        <div class="case-step-label">Desafio</div>
+        <div class="case-step-text">Menos de 45% dos restaurantes brasileiros oferecem reserva. Build interno levaria 24+ meses.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Decisão</div>
+        <div class="case-step-text">M&A da Get In por R$ 45M. Integração de APIs em 90 dias. Rebrand progressivo para iFood Reservas.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Execução</div>
+        <div class="case-step-text">Squad dedicado de 12 pessoas. Design system unificado. Migração de 2.800 restaurantes em 60 dias.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Resultados</div>
+        <div class="case-step-text">Economia de 18 meses de time-to-market, 12,4K restaurantes integrados e +28% de ocupação do salão.</div>
+      </div>
+    </div>
+    <div class="case-results">
+      <div class="case-result"><div class="val">18 meses</div><div class="lab">Economia de time-to-market</div></div>
+      <div class="case-result"><div class="val">12,4K</div><div class="lab">Restaurantes integrados</div></div>
+      <div class="case-result"><div class="val">+28%</div><div class="lab">Ocupação salão</div></div>
+      <div class="case-result"><div class="val">R$ 89M</div><div class="lab">GMV atribuído</div></div>
+    </div>
+  </div>
+
+  <div class="case-block reveal">
+    <h3 class="case-title">iFood Pago — <em>Conta Digital e Maquinona</em></h3>
+    <div class="case-steps">
+      <div class="case-step">
+        <div class="case-step-label">Desafio</div>
+        <div class="case-step-text">Silos entre times de Comer Fora e iFood Pago. Restaurantes não conseguiam rastrear origem dos clientes.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Hipótese</div>
+        <div class="case-step-text">Um código QR único vinculado ao CPF do usuário unifica cupom, check-in e pagamento em um único identifier.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Experimento</div>
+        <div class="case-step-text">Piloto em 180 restaurantes de Campinas. 3 variantes de UX para o check-in. Tracking de cohorts por origem.</div>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Resultados</div>
+        <div class="case-step-text">+47% no ticket médio, 3,1x de frequência mensal e 89% de taxa de check-in.</div>
+      </div>
+    </div>
+    <div class="case-results">
+      <div class="case-result"><div class="val">+47%</div><div class="lab">Ticket médio</div></div>
+      <div class="case-result"><div class="val">3,1x</div><div class="lab">Frequência/mês</div></div>
+      <div class="case-result"><div class="val">89%</div><div class="lab">Taxa de check-in</div></div>
+      <div class="case-result"><div class="val">R$ 156M</div><div class="lab">Receita incremental</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== ROADMAP ===== -->
+<div class="roadmap-section" id="roadmap">
+  <div class="roadmap-inner">
+    <div class="roadmap-header reveal">
+      <div class="section-label">O que construímos</div>
+      <h2>iFood Pago <em>& Comer Fora</em></h2>
+      <p>Roadmap e previsões da Tríade do iFood.<br>Cada marco foi fruto da parceria entre Design, Produto e Tech.</p>
+    </div>
+    <div class="roadmap-grid">
+      <div class="roadmap-card reveal">
+        <div class="roadmap-period">Q3 2026</div>
+        <h4>Expansão e Fidelização</h4>
+        <p>iFood Pago em 25 cidades. Programa de Fidelidade "Clube Salão". Split de Pagamentos na Maquinona.</p>
+        <div class="roadmap-metrics">
+          <p><strong>Novos restaurantes</strong> +35K</p>
+          <p><strong>GMV trimestral</strong> R$ 2,1B</p>
+          <p><strong>Retenção D90</strong> > 55%</p>
+        </div>
+      </div>
+      <div class="roadmap-card reveal">
+        <div class="roadmap-period">Q4 2026</div>
+        <h4>Monetização e Ecossistema</h4>
+        <p>iFood Ads para Salão. Crédito iFood Pago 2.0. Reserva em Grupo & Eventos.</p><br>
+        <div class="roadmap-metrics">
+          <p><strong>Receita de Ads</strong> R$ 28M</p>
+          <p><strong>Crédito liberado</strong> R$ 120M</p>
+          <p><strong>Take rate</strong> 8,2%</p>
+        </div>
+      </div>
+      <div class="roadmap-card reveal">
+        <div class="roadmap-period">2027</div>
+        <h4>Plataforma e Internacionalização</h4>
+        <p>White-label para Redes. Expansão Colômbia/México. AI Concierge.</p><br>
+        <div class="roadmap-metrics">
+          <p><strong>GMV anual</strong> R$ 12B+</p>
+          <p><strong>Restaurantes</strong> 200K+</p>
+          <p><strong>Países</strong> 3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TRAJETÓRIA ===== -->
+<div class="traj-section" id="trajetoria">
+  <div class="traj-inner">
+    <div class="traj-header reveal">
+      <div class="section-label">Trajetória</div>
+      <h2>O caminho até <em>aqui</em></h2>
+    </div>
+    <div class="timeline">
+      <div class="t-item reveal">
+        <div class="t-content">
+          <div class="t-period">Set 2021 / atual - sócio</div>
+          <div class="t-role">Partner & Head of Design</div>
+          <div class="t-company">iFood / B2B Fintech Platform</div>
+          <div class="t-desc">Liderança do design do iFood Pago, Benefícios, Zoop, Banco dos Restaurantes e iFood Comer Fora. Time multidisciplinar de Product Design, Research, UX Writing e Design Ops. Design System proprietário. Modelos preditivos com AI. Entrega de R$ 2,4B em rendimento</div>
+        </div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-content">
+          <div class="t-period">Nov 2020 / Set 2021</div>
+          <div class="t-role">Head of Product Design</div>
+          <div class="t-company">Globo / B2C & Fintech Platform</div>
+          <div class="t-desc">Joint venture com Shell. Gateway de pagamentos whitelabel. R$35mi investidos. Liderança cross-functional com Product, Engineering e Data. <br> Entrega: Infraestrutura de pagamentos completa, unificando ecossistemas corporativos distintos em uma única jornada digital.</div>
+        </div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-content">
+          <div class="t-period">Jun 2018 / Nov 2020</div>
+          <div class="t-role">Head of Product Design</div>
+          <div class="t-company">Shell / B2B Fintech Platform</div>
+          <div class="t-desc">Co-fundei gateway de pagamentos que virou fintech internacional da Shell. Contas de pagamento para revendedores via Shell Box.<br>Produto B2B escalado globalmente.<br>Entrega: Escala internacional do Shell Box integrado com o gateway para 5 países da América Latina, com adoção por milhares de revendedores e integração com ecossistema de frotas corporativas só no primeiro ano.</div>
+        </div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-content">
+          <div class="t-period">Jul 2017 / Jul 2018</div>
+          <div class="t-role">Principal Product Designer</div>
+          <div class="t-company">GuiaBolso / B2C Fintech (Kaszek)</div>
+          <div class="t-desc">Preparação do app para aquisição pelo PicPay.<br>Planejamento financeiro pessoal com foco em pesquisa e dados. Criação do primeiro radar de CPF em APP do mercado. Entrega: Radar de CPF lançado e onsolidando base de 6 milhões de usuários com tecnologia própria que viabilizou a aquisição pelo PicPay por valor estimado entre R$ 150 milhões e R$ 200 milhões.</div>
+        </div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-content">
+          <div class="t-period">Mar 2014 / Jul 2017</div>
+          <div class="t-role">Visual Designer / Product Designer Specialist</div>
+          <div class="t-company">Time de inovação iFood / B2C & B2B Platform</div>
+          <div class="t-desc">Foco em inovação e testes que exigiam hiper-crescimento, como o SpoonRocket. Experiência com plataforma de múltiplos produtos (delivery, visão entregador, gestão do restaurante). Empresa incorporada pela Movile.
+          Entrega: Crescimento de 314 mil pedidos mensais em menos de 18 meses. Início da integração da frente SpoonRocket e portal do parceiro.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-avatar">
+      <span class="initials">👋</span>
+    </div>
+    <div class="footer-name">Neto Andrade</div>
+    <div class="footer-role">Sócio & Head of Design · iFood Pago e iFood Comer Fora | Inovação e AI</div>
+    <a href="https://linkedin.com/in/netoandrade/" target="_blank" class="footer-cta">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Ver perfil no LinkedIn
+    </a>
+    <div class="footer-line"></div>
+    <p class="footer-copy">
+      Material de apoio construído para demonstração de capacidades de co-criação de design com time de produtos digitais<br>Bate papo com a Renata Gagetti (VP de Produtos da Blip)
+    </p>
+  </div>
+</div>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal, .pilar-row').forEach(el => obs.observe(el));
+
+  // Progress bars
+  const progObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelector('.progress-fill').classList.add('animated');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.progress-item').forEach(el => progObs.observe(el));
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const offset = 80;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Mobile menu toggle
+  const navToggle = document.getElementById('navToggle');
+  const navOverlay = document.getElementById('navOverlay');
+
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    document.body.style.overflow = navOverlay.classList.contains('active') ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.nav-overlay-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      navToggle.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      if (target) {
+        setTimeout(() => {
+          const offset = 80;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        }, 300);
+      }
+    });
+  });
+
+  // Back to top button
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+  }
+</script>
+
+
+<!-- ===== BACK TO TOP ===== -->
+<button class="back-to-top" id="backToTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+</body>
+</html>
